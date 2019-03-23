@@ -1,4 +1,6 @@
-var Twitter = require('twitter');
+const Twitter = require('twitter');
+const DBService = require('../repository/db.service');
+const FeedEnum = require('../entities/enums/feedType.enum');
 
 class TweeterService {
     constructor() {
@@ -17,9 +19,19 @@ class TweeterService {
     getTweets() {
         this.client.get('https://api.twitter.com/1.1/search/tweets.json?q=israel', function (error, tweets, response) {
             if (error) throw error;
-            var tweets = tweets.statuses;
+            const selectedTweets = tweets.statuses;
 
-            console.info(tweets);
+            selectedTweets.forEach((tweet) => console.info(tweet));
+        });
+    }
+
+    saveNewTweets() {
+        this.client.get('https://api.twitter.com/1.1/search/tweets.json?q=israel', function (error, tweets, response) {
+            if (error) throw error;
+            const selectedTweets = tweets.statuses;
+
+            const dbService = new DBService();
+            dbService.saveNewFeed(FeedEnum.TWITTER, selectedTweets);
         });
     }
 }

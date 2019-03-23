@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 
 var Twitter = require('twitter');
 var twitterService = require('./services/twitter-service');
+var DBService = require('./repository/db.service');
 
 var app = express();
 
@@ -41,8 +42,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-twitterService = new twitterService();
 
-twitterService.getTweets();
+//twitterService = new twitterService();
+//twitterService.saveNewTweets();
+
+DBService = new DBService();
+DBService.getSavedTweets();
 
 module.exports = app;
