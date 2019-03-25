@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var Twitter = require('twitter');
 var twitterService = require('./services/twitter-service');
 var DBService = require('./repository/db.service');
+var cron = require('node-cron');
 
 var app = express();
 
@@ -42,11 +43,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+twitterService = new twitterService();
 
-//twitterService = new twitterService();
-//twitterService.saveNewTweets();
-
-DBService = new DBService();
-DBService.getSavedTweets();
+//******************************************
+//** Scheduling Feed Request every 5 minutes
+//******************************************
+cron.schedule('*/5 * * * *', () => {
+  console.info('scheduling crawler feed request: ' + Date.now());
+  twitterService.saveNewTweets();
+});
 
 module.exports = app;
