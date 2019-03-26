@@ -46,9 +46,9 @@ app.use(function(err, req, res, next) {
 twitterService = new twitterService();
 
 //******************************************
-//** Scheduling Feed Request every 5 minutes
+//** Scheduling Feed Request every 30 minutes
 //******************************************
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('*/30 * * * *', () => {
   console.info('scheduling crawler feed request: ' + Date.now());
   twitterService.saveNewTweets();
 });
