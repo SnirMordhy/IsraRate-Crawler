@@ -6,7 +6,10 @@ const DB_URI = 'mongodb://localhost/test';
 
 const router = express.Router();
 
-
+///////////////////////////////////
+// **** GET DATED SCORED DATA ****
+// http://localhost:3000/feed/ScoreRange?fromDate=2019-03-22&toDate=2019-03-26
+///////////////////////////////////
 router.get('/ScoreRange', function (req, res, next) {
     let fromDate = req.query.fromDate;
     let toDate   = req.query.toDate;
