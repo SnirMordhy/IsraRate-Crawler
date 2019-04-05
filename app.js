@@ -50,7 +50,7 @@ twitterService = new twitterService();
 //******************************************
 //** Scheduling Feed Request every 30 minutes
 //******************************************
-cron.schedule('*/30 * * * *', () => {
+cron.schedule('*/10 * * * *', () => {
   console.info('scheduling crawler feed request: ' + Date.now());
   twitterService.saveNewTweets();
 });
