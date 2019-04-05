@@ -3,10 +3,17 @@ const FeedSchema = require('../entities/schemas/feed.schema');
 const FeedModel = require('../entities/models/feed.model');
 const FeedTypeEnum = require('../entities/enums/feedType.enum');
 const DB_URI = 'mongodb://localhost/test';
-
+const DB_URI_STRING = 'mongodb+srv://IsraRateDBAdmin:Aa123123@israratedb-cluster-eak9r.mongodb.net/IsraRateDB?retryWrites=true';
+const OPTIONS = {
+    useNewUrlParser: true,
+        createIndexes: false, // Don't build indexes
+        reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+        reconnectInterval: 500, // Reconnect every 500ms
+        poolSize: 10, // Maintain up to 10 socket connections
+};
  class DBService {
     constructor() {
-        mongoose.connect(DB_URI, { useNewUrlParser: true});
+        mongoose.connect(DB_URI_STRING, OPTIONS);
     };
 
     saveNewFeed(feedType, feeds) {
