@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const _ = require('lodash');
 const FeedModel = require('../entities/models/feed.model');
-const DB_URI = 'mongodb://localhost/test';
+const DB_URI = 'mongodb+srv://IsraRateDBAdmin:Aa123123@israratedb-cluster-eak9r.mongodb.net/IsraRateDB?retryWrites=true';
 
 const router = express.Router();
 
@@ -20,14 +20,13 @@ router.get('/ScoreRange', function (req, res, next) {
             toDate = Date.parse(toDate);
         } else {
             toDate = Date.now();
-            console.log(toDate);
         }
     }
 
     if (isNaN(fromDate) || isNaN(toDate)) {
         res.sendStatus(400);
     } else {
-        mongoose.connect(DB_URI, { useNewUrlParser: true});
+        mongoose.connect(DB_URI, { useNewUrlParser: true, reconnectTries: Number.MAX_VALUE, reconnectInterval: 500});
         var db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function () {
