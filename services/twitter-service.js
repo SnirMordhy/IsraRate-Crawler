@@ -1,7 +1,7 @@
 const Twitter = require('twitter');
 const DBService = require('../repository/db.service');
 const FeedEnum = require('../entities/enums/feedType.enum');
-const Request  = require('request');
+const Request = require('request');
 
 class TweeterService {
     constructor() {
@@ -38,8 +38,7 @@ class TweeterService {
                 if (err) {
                     console.error(err);
                 }
-
-                if (res.statusCode === 201){
+                else if (res.statusCode === 201) {
                     selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
                 }
             });
