@@ -27,23 +27,32 @@ class TweeterService {
     }
 
     saveNewTweets() {
-        this.client.get('https://api.twitter.com/1.1/search/tweets.json?q=israel', function (error, tweets, response) {
-            if (error) throw error;
-            const selectedTweets = tweets.statuses;
+    //     this.client.get('https://api.twitter.com/1.1/search/tweets.json?q=israel', function (error, tweets, response) {
+    //         if (error) throw error;
+    //         const selectedTweets = tweets.statuses;
+    //
+    //         // save the tweets
+    //         Request.post("http://israrate-db.herokuapp.com/api/feed/add", {
+    //             json: selectedTweets
+    //         }, (err, res, body) => {
+    //             if (err) {
+    //                 console.error(err);
+    //             }
+    //
+    //             if (res.statusCode === 201){
+    //                 selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
+    //             }
+    //         });
+    //     });
+    }
 
-            // save the tweets
-            Request.post("http://israrate-db.herokuapp.com/api/feed/add", {
-                json: selectedTweets
-            }, (err, res, body) => {
-                if (err) {
-                    console.error(err);
-                }
-
-                if (res.statusCode === 201){
-                    selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
-                }
-            });
-        });
+    user_lookup(user_id) {
+        //TODO: uncomment when we have the api key
+    //     this.client.get(`https://api.twitter.com/1.1/users/lookup.json?user_id=${user_id}`, (error, user_object) => {
+    //        if (error) throw error;
+    //
+    //        return user_object;
+    //     });
     }
 }
 

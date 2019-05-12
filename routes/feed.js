@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/ScoreRange', function (req, res, next) {
     let fromDate = req.query.fromDate;
     let toDate   = req.query.toDate;
-    
+
     if (fromDate) {
         fromDate = Date.parse(fromDate);
         if (toDate) {
