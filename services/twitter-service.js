@@ -38,8 +38,7 @@ class TweeterService {
                 if (err) {
                     console.error(err);
                 }
-
-                if (res.statusCode === 201){
+                else if (res.statusCode === 201){
                     selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
                 }
             });
