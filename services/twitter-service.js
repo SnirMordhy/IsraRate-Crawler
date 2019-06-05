@@ -3,6 +3,11 @@ const DBService = require('../repository/db.service');
 const FeedEnum = require('../entities/enums/feedType.enum');
 const Request  = require('request');
 
+const twitterRequest = {
+    url: 'https://api.twitter.com/1.1/search/tweets.json',
+    params: ['q=israel', 'count=100', 'result_type=recent', 'geo-tagged']
+};
+
 class TweeterService {
     constructor() {
         this.initConnection();
@@ -18,7 +23,7 @@ class TweeterService {
     }
 
     getTweets() {
-        this.client.get('https://api.twitter.com/1.1/search/tweets.json?q=israel', function (error, tweets, response) {
+        this.client.get(this.getQuery(), function (error, tweets, response) {
             if (error) throw error;
             const selectedTweets = tweets.statuses;
 
@@ -27,7 +32,7 @@ class TweeterService {
     }
 
     saveNewTweets() {
-        this.client.get('https://api.twitter.com/1.1/search/tweets.json?q=israel', function (error, tweets, response) {
+        this.client.get(this.getQuery(), function (error, tweets, response) {
             if (error) throw error;
             const selectedTweets = tweets.statuses;
 
@@ -43,6 +48,12 @@ class TweeterService {
                 }
             });
         });
+    }
+
+    getQuery() {
+        let query = twitterRequest.url + '?';
+        twitterRequest.params.forEach(param => query+= param + '&');
+        return query.slice(0, -1);
     }
 }
 
