@@ -37,14 +37,25 @@ class TweeterService {
             const selectedTweets = tweets.statuses;
 
             // save the tweets
-            Request.post("http://israrate-db.herokuapp.com/api/feed/add", {
+            Request.post("http://localhost/api/feed/add", {
                 json: selectedTweets
             }, (err, res, body) => {
-                if (err) {
-                    console.error(err);
+                if(!res)
+                {
+                    console.error("No Response!");
                 }
-                else if (res.statusCode === 201){
-                    selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
+                else
+                {
+                    if (res.statusCode === 500) {
+                        console.error(res.statusMessage);
+                    }
+                    else if (res.statusCode === 200) {
+                        selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
+                    }
+                    else
+                    {
+                        console.error("Error!");
+                    }
                 }
             });
         });
