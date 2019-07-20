@@ -50,7 +50,8 @@ class TweeterService {
                         console.error(res.statusMessage);
                     }
                     else if (res.statusCode === 200) {
-                        selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
+                        //selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
+                        console.info("Saved " + selectedTweets.length + " tweets");
                     }
                     else
                     {
