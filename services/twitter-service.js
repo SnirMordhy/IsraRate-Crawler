@@ -32,34 +32,38 @@ class TweeterService {
     }
 
     saveNewTweets() {
-        this.client.get(this.getQuery(), function (error, tweets, response) {
-            if (error) throw error;
-            const selectedTweets = tweets.statuses;
+        try {
+            this.client.get(this.getQuery(), function (error, tweets, response) {
+                if (error) throw error;
+                const selectedTweets = tweets.statuses;
 
-            // save the tweets
-            Request.post("http://localhost/api/feed/add", {
-                json: selectedTweets
-            }, (err, res, body) => {
-                if(!res)
-                {
-                    console.error("No Response!");
-                }
-                else
-                {
-                    if (res.statusCode === 500) {
-                        console.error(res.statusMessage);
-                    }
-                    else if (res.statusCode === 200) {
-                        //selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
-                        console.info("Saved " + selectedTweets.length + " tweets");
+                // save the tweets
+                Request.post("http://localhost/api/feed/add", {
+                    json: selectedTweets
+                }, (err, res, body) => {
+                    if(!res)
+                    {
+                        console.error("No Response!");
                     }
                     else
                     {
-                        console.error("Error!");
+                        if (res.statusCode === 500) {
+                            console.error(res.statusMessage);
+                        }
+                        else if (res.statusCode === 200) {
+                            //selectedTweets.forEach(tweet => console.info("tweet: " + tweet.id + " successfully saved"));
+                            console.info("Saved " + selectedTweets.length + " tweets");
+                        }
+                        else
+                        {
+                            console.error("Error!");
+                        }
                     }
-                }
+                });
             });
-        });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     getQuery() {
