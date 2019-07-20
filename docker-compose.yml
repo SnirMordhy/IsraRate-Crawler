@@ -1,7 +1,8 @@
 version: '3'
 services:
   web:
+    network_mode: host
     image: israratecrawler
     build: .
-    env_file: 
+    env_file:
       - twittercred.list
